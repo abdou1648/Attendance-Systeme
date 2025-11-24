@@ -1,89 +1,83 @@
-$(function() {
-
-    // ----------- EXERCISE 1 -----------
-    function computeRowStats(row) {
-        let abs = 0;
-        let par = 0;
-
-        let tds = row.find("td");
-
-        // S and P columns: index 2 → 13
-        for (let i = 2; i <= 13; i++) {
-            let val = tds.eq(i).text().trim();
-
-            if ((i - 2) % 2 === 0) {
-                // S column (presence)
-                if (val !== "✓") abs++;
-            } else {
-                // P column
-                if (val === "✓") par++;
-            }
-        }
-
-        // Write results
-        tds.eq(14).text(abs);
-        tds.eq(15).text(par);
-
-        // Message
-        let msg = "";
-        if (abs >= 5) msg = "Excluded – too many absences";
-        else if (abs >= 3) msg = "Warning – attendance low";
-        else msg = "Good attendance";
-
-        tds.eq(16).text(msg);
-
-        // Row color
-        row.removeClass("row-green row-yellow row-red");
-        if (abs < 3) row.addClass("row-green");
-        else if (abs <= 4) row.addClass("row-yellow");
-        else row.addClass("row-red");
-    }
-
-    // Compute stats for initial row
-    $("#attendanceTable tbody tr").each(function() {
-        computeRowStats($(this));
+$(document).ready(function() {
+  
+    $('#attendance-table tbody tr').each(function() {
+      let abs = parseInt($(this).find('td').eq(8).text());
+      let msg = '';
+      if (abs < 3) {
+        $(this).css('background', '#c8f7c5');
+        msg = 'Good attendance';
+      } else if (abs <= 4) {
+        $(this).css('background', '#fff8c5');
+        msg = 'Warning: low attendance';
+      } else {
+        $(this).css('background', '#ffbaba');
+        msg = 'Excluded – too many absences';
+      }
+      $(this).find('td').eq(10).text(msg);
     });
-
-
-    // ----------- EXERCISE 2 + 3 -----------
-    $("#studentForm").on("submit", function(e) {
-        e.preventDefault();
-
-        let last = $("#lastName").val().trim();
-        let first = $("#firstName").val().trim();
-
-        $("#errorMsg").text("");
-        $("#successMsg").text("");
-
-        if (last === "" || first === "") {
-            $("#errorMsg").text("Both names are required.");
-            return;
-        }
-
-        // Build new row
-        let row = $("<tr></tr>");
-
-        row.append(<td>${last}</td>);
-        row.append(<td>${first}</td>);
-
-        // Default values ✗ ✗ for 6 sessions
-        for (let i = 0; i < 6; i++) {
-            row.append("<td>✗</td>");
-            row.append("<td>✗</td>");
-        }
-
-        row.append('<td class="abs"></td>');
-        row.append('<td class="par"></td>');
-        row.append('<td class="msg"></td>');
-
-        // Add to table
-        $("#attendanceTable tbody").append(row);
-
-        // compute stats again
-        computeRowStats(row);
-
-        $("#successMsg").text("Student added successfully.");
-        $("#studentForm")[0].reset();
+  
+    
+    $('#search').on('keyup', function() {
+      let val = $(this).val().toLowerCase();
+      $('#attendance-table tbody tr').filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(val) > -1);
+      });
     });
-
-});
+  
+    
+    $('#sort-abs').click(function() {
+      let rows = $('#attendance-table tbody tr').get();
+      rows.sort((a, b) =>
+        parseInt($(a).find('td').eq(8).text()) - parseInt($(b).find('td').eq(8).text())
+      );
+      $('#attendance-table tbody').append(rows);
+    });
+  
+    $('#sort-par').click(function() {
+      let rows = $('#attendance-table tbody tr').get();
+      rows.sort((a, b) =>
+        parseInt($(b).find('td').eq(9).text()) - parseInt($(a).find('td').eq(9).text())
+      );
+      $('#attendance-table tbody').append(rows);
+    });
+  
+    
+    $('#highlight-excellent').click(function() {
+      $('#attendance-table tbody tr').each(function() {
+        let abs = parseInt($(this).find('td').eq(8).text());
+        if (abs < 3) {
+          $(this).fadeOut(200).fadeIn(200);
+        }
+      });
+    });
+  
+    $('#reset').click(function() {
+      location.reload();
+    });
+  
+    
+    $('#student-form').submit(function(e) {
+      e.preventDefault();
+      let id = $('#id').val().trim();
+      let lname = $('#lname').val().trim();
+      let fname = $('#fname').val().trim();
+      let email = $('#email').val().trim();
+      let valid = true;
+      $('.error').text('');
+  
+      if (!/^[0-9]+$/.test(id)) { $('#err-id').text('ID must be numbers'); valid = false; }
+      if (!/^[A-Za-z]+$/.test(lname)) { $('#err-lname').text('Letters only'); valid = false; }
+      if (!/^[A-Za-z]+$/.test(fname)) { $('#err-fname').text('Letters only'); valid = false; }
+      if (!/^[^@]+@[^@]+\.[^@]+$/.test(email)) { $('#err-email').text('Invalid email'); valid = false; }
+  
+      if (valid) {
+        $('#attendance-table tbody').append(`
+          <tr><td>${lname}</td><td>${fname}</td>
+          <td></td><td></td><td></td><td></td><td></td><td></td>
+          <td>0</td><td>0</td><td>New student</td></tr>
+        `);
+        alert('Student added successfully!');
+        this.reset();
+      }
+    });
+  });

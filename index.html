@@ -1,75 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Attendance - T2 Exercises 1 to 3</title>
-
-    <link rel="stylesheet" href="style.css">
-
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Attendance System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <h1>Attendance Management</h1>
+    <div class="links">
+      <a href="#attendance">Attendance List</a>
+      <a href="#add-student">Add Student</a>
+      <a href="#reports">Reports</a>
+    </div>
+  </nav>
 
+  <!-- Attendance Section -->
+  <section id="attendance">
     <h2>Attendance Table</h2>
 
-    <table id="attendanceTable">
-        <thead>
-            <tr>
-                <th>Last Name</th>
-                <th>First Name</th>
+    <div class="controls">
+      <input type="text" id="search" placeholder="🔍 Search by name..." />
+      <button id="sort-abs">Sort by Absences</button>
+      <button id="sort-par">Sort by Participation</button>
+      <button id="highlight-excellent">Highlight Excellent</button>
+      <button id="reset">Reset</button>
+    </div>
 
-                <!-- 6 sessions -->
-                <th>S1</th><th>P1</th>
-                <th>S2</th><th>P2</th>
-                <th>S3</th><th>P3</th>
-                <th>S4</th><th>P4</th>
-                <th>S5</th><th>P5</th>
-                <th>S6</th><th>P6</th>
-
-                <th>Absences</th>
-                <th>Participation</th>
-                <th>Message</th>
-            </tr>
-        </thead>
-
-        <tbody>
-            <tr>
-                <td>Smith</td>
-                <td>Alex</td>
-
-                <td>✓</td><td>✗</td>
-                <td>✗</td><td>✗</td>
-                <td>✓</td><td>✓</td>
-                <td>✗</td><td>✗</td>
-                <td>✓</td><td>✓</td>
-                <td>✗</td><td>✓</td>
-
-                <td class="abs"></td>
-                <td class="par"></td>
-                <td class="msg"></td>
-            </tr>
-        </tbody>
+    <table id="attendance-table">
+      <thead>
+        <tr>
+          <th>Last Name</th>
+          <th>First Name</th>
+          <th>S1</th><th>S2</th><th>S3</th><th>S4</th><th>S5</th><th>S6</th>
+          <th>Absences</th>
+          <th>Participation</th>
+          <th>Message</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Ahmed</td><td>Sara</td>
+          <td>✓</td><td>✓</td><td></td><td></td><td></td><td></td>
+          <td>2</td><td>1</td><td></td>
+        </tr>
+        <tr>
+          <td>Yacine</td><td>Ali</td>
+          <td>✓</td><td></td><td>✓</td><td>✓</td><td>✓</td><td>✓</td>
+          <td>1</td><td>4</td><td></td>
+        </tr>
+        <tr>
+          <td>Houcine</td><td>Rania</td>
+          <td></td><td>✓</td><td></td><td>✓</td><td></td><td></td>
+          <td>4</td><td>2</td><td></td>
+        </tr>
+      </tbody>
     </table>
 
+    <div id="report"></div>
+  </section>
 
-    <h2>Exercise 2 + 3: Add Student</h2>
-
-    <form id="studentForm">
-        <label>Last Name</label>
-        <input type="text" id="lastName">
-
-        <label>First Name</label>
-        <input type="text" id="firstName">
-
-        <button type="submit">Add Student</button>
-
-        <p id="errorMsg"></p>
-        <p id="successMsg"></p>
+  <!-- Add Student Section -->
+  <section id="add-student">
+    <h2>Add New Student</h2>
+    <form id="student-form">
+      <div><label>ID:</label><input type="text" id="id"><span id="err-id" class="error"></span></div>
+      <div><label>Last Name:</label><input type="text" id="lname"><span id="err-lname" class="error"></span></div>
+      <div><label>First Name:</label><input type="text" id="fname"><span id="err-fname" class="error"></span></div>
+      <div><label>Email:</label><input type="text" id="email"><span id="err-email" class="error"></span></div>
+      <button type="submit">Add Student</button>
     </form>
+  </section>
 
-    <script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
