@@ -1,0 +1,21 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table, th, td {
+    border: 1px solid #333;
+}
+
+th, td {
+    padding: 8px;
+    text-align: center;
+}
+
+.row-green { background: #d4edda; }
+.row-yellow { background: #fff3cd; }
+.row-red { background: #f8d7da; }
+
+#errorMsg { color: red; }
+#successMsg { color: green; }
