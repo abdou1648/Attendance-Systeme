@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance System - T1</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 15px;
+        }
+
+        /* ---------------- NAVBAR (T1 - Exercise 3) ---------------- */
+        nav {
+            background: #333;
+            padding: 10px;
+            border-radius: 5px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            text-align: center;
+            padding: 8px;
+            background: #444;
+            border-radius: 5px;
+        }
+
+        nav a:hover {
+            background: #666;
+        }
+
+        /* ---------------- TABLE (T1 - Exercise 1) ---------------- */
+        .table-container {
+            overflow-x: auto;
+            margin-top: 20px;
+        }
+
+        table {
+            width: 750px;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+
+        /* ---------------- FORM (T1 - Exercise 2) ---------------- */
+        form {
+            margin-top: 40px;
+            padding: 15px;
+            border: 1px solid #333;
+            border-radius: 5px;
+        }
+
+        form label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        form input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+        }
+
+        form button {
+            width: 100%;
+            padding: 10px;
+            background: #333;
+            color: white;
+            margin-top: 15px;
+            border: none;
+            cursor: pointer;
+        }
+
+        form button:hover {
+            background: #555;
+        }
+
+        /* ---------------- MOBILE FIRST → MEDIA QUERIES (T1 - Ex4) ---------------- */
+
+        /* Tablets */
+        @media (min-width: 600px) {
+            nav {
+                flex-direction: row;
+                justify-content: center;
+            }
+
+            nav a {
+                flex: 1;
+                max-width: 150px;
+            }
+
+            form {
+                max-width: 450px;
+                margin: auto;
+            }
+        }
+
+        /* Desktop */
+        @media (min-width: 900px) {
+            nav {
+                flex-direction: row;
+                justify-content: flex-start;
+                gap: 15px;
+            }
+
+            .table-container {
+                overflow-x: visible;
+            }
+
+            table {
+                width: 100%;
+            }
+
+            form {
+                max-width: 400px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ---------------- NAVBAR ---------------- -->
+    <nav>
+        <a href="#">Home</a>
+        <a href="#">Attendance List</a>
+        <a href="#">Add Student</a>
+        <a href="#">Reports</a>
+        <a href="#">Logout</a>
+    </nav>
+
+    <!-- ---------------- TABLE ---------------- -->
+    <h2>Student Attendance</h2>
+
+    <div class="table-container">
+        <table>
+            <tr>
+                <th>Student ID</th>
+                <th>Last Name</th>
+                <th>First Name</th>
+                <th>Course</th>
+                <th>Session Date</th>
+                <th>Present</th>
+                <th>Participated</th>
+            </tr>
+
+            <tr>
+                <td>001</td>
+                <td>Smith</td>
+                <td>John</td>
+                <td>Web Programming</td>
+                <td>2025-11-21</td>
+                <td>Yes</td>
+                <td>No</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- ---------------- FORM ---------------- -->
+    <h2>Add New Student</h2>
+
+    <form>
+        <label>Student ID</label>
+        <input type="text" placeholder="Enter ID">
+        <label>Last Name</label>
+        <input type="text" placeholder="Enter last name">
+
+        <label>First Name</label>
+        <input type="text" placeholder="Enter first name">
+
+        <label>Email</label>
+        <input type="email" placeholder="Enter email">
+
+        <button type="submit">Submit</button>
+    </form>
+
+</body>
+</html>
