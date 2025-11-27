@@ -1,5 +1,5 @@
 
-//  jQuery 
+// jQuery 
 document.addEventListener('DOMContentLoaded', function () {
 
   // helpers
