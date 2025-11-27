@@ -1,82 +1,173 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Attendance System</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Attendance System — T2</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  <!-- jQuery + Chart.js CDNs -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+  <script src="script.js" defer></script>
 </head>
-
 <body>
-  <!-- Navbar -->
-  <nav class="navbar">
-    <h1>Attendance Management</h1>
-    <div class="links">
-      <a href="#attendance">Attendance List</a>
+  <header class="site-header">
+    <div class="brand">
+      <h1>Attendance Management</h1>
+      <p class="subtitle"></p>
+    </div>
+    <nav class="main-nav">
+      <a href="#attendance">Attendance</a>
       <a href="#add-student">Add Student</a>
-      <a href="#reports">Reports</a>
-    </div>
-  </nav>
+      <a href="#report">Reports</a>
+    </nav>
+  </header>
 
-  <!-- Attendance Section -->
-  <section id="attendance">
-    <h2>Attendance Table</h2>
+  <main class="container">
 
-    <div class="controls">
-      <input type="text" id="search" placeholder="🔍 Search by name..." />
-      <button id="sort-abs">Sort by Absences</button>
-      <button id="sort-par">Sort by Participation</button>
-      <button id="highlight-excellent">Highlight Excellent</button>
-      <button id="reset">Reset</button>
-    </div>
+    <!-- Attendance -->
+    <section id="attendance" class="card">
+      <div class="card-head">
+        <h2>Attendance Table</h2>
+        <div class="controls">
+          <input id="search" placeholder="🔍 Search by last or first name">
+          <div class="btn-group">
+            <button id="sortAbs" class="btn">Sort by Absences ↑</button>
+            <button id="sortPar" class="btn">Sort by Participation ↓</button>
+            <button id="highlightGood" class="btn alt">Highlight Excellent</button>
+            <button id="reset" class="btn ghost">Reset</button>
+            <button id="showReport" class="btn primary">Show Report</button>
+          </div>
+        </div>
+      </div>
 
-    <table id="attendance-table">
-      <thead>
-        <tr>
-          <th>Last Name</th>
-          <th>First Name</th>
-          <th>S1</th><th>S2</th><th>S3</th><th>S4</th><th>S5</th><th>S6</th>
-          <th>Absences</th>
-          <th>Participation</th>
-          <th>Message</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Ahmed</td><td>Sara</td>
-          <td>✓</td><td>✓</td><td></td><td></td><td></td><td></td>
-          <td>2</td><td>1</td><td></td>
-        </tr>
-        <tr>
-          <td>Yacine</td><td>Ali</td>
-          <td>✓</td><td></td><td>✓</td><td>✓</td><td>✓</td><td>✓</td>
-          <td>1</td><td>4</td><td></td>
-        </tr>
-        <tr>
-          <td>Houcine</td><td>Rania</td>
-          <td></td><td>✓</td><td></td><td>✓</td><td></td><td></td>
-          <td>4</td><td>2</td><td></td>
-        </tr>
-      </tbody>
-    </table>
+      <div class="table-wrap">
+        <table id="attendance-table" aria-label="Attendance table">
+          <thead>
+            <tr>
+              <th>Last Name</th><th>First Name</th>
+              <th>S1</th><th>P1</th>
+              <th>S2</th><th>P2</th>
+              <th>S3</th><th>P3</th>
+              <th>S4</th><th>P4</th>
+              <th>S5</th><th>P5</th>
+              <th>S6</th><th>P6</th>
+              <th>Absences</th>
+              <th>Participation</th>
+              <th>Message</th>
+            </tr>
+          </thead>
 
-    <div id="report"></div>
-  </section>
+          <tbody>
+            <tr>
+              <td>Ahmed</td><td>Sara</td>
+              <td contenteditable="true">✓</td><td contenteditable="true">✓</td>
+              <td contenteditable="true">—</td><td contenteditable="true">—</td>
+              <td contenteditable="true">—</td><td contenteditable="true">✓</td>
+              <td contenteditable="true">—</td><td contenteditable="true">—</td>
+              <td contenteditable="true">✓</td><td contenteditable="true">—</td>
+              <td contenteditable="true">—</td><td contenteditable="true">—</td>
+              <td></td><td></td><td class="message"></td>
+            </tr>
 
-  <!-- Add Student Section -->
-  <section id="add-student">
-    <h2>Add New Student</h2>
-    <form id="student-form">
-      <div><label>ID:</label><input type="text" id="id"><span id="err-id" class="error"></span></div>
-      <div><label>Last Name:</label><input type="text" id="lname"><span id="err-lname" class="error"></span></div>
-      <div><label>First Name:</label><input type="text" id="fname"><span id="err-fname" class="error"></span></div>
-      <div><label>Email:</label><input type="text" id="email"><span id="err-email" class="error"></span></div>
-      <button type="submit">Add Student</button>
-    </form>
-  </section>
+            <tr>
+              <td>Yacine</td><td>Ali</td>
+              <td contenteditable="true">✓</td><td contenteditable="true">—</td>
+              <td contenteditable="true">✓</td><td contenteditable="true">✓</td>
+              <td contenteditable="true">✓</td><td contenteditable="true">✓</td>
+              <td contenteditable="true">✓</td><td contenteditable="true">✓</td>
+              <td contenteditable="true">✓</td><td contenteditable="true">✓</td>
+              <td contenteditable="true">—</td><td contenteditable="true">✓</td>
+              <td></td><td></td><td class="message"></td>
+            </tr>
 
-  <script src="script.js"></script>
+            <tr>
+              <td>Houcine</td><td>Rania</td>
+              <td contenteditable="true">—</td><td contenteditable="true">—</td>
+              <td contenteditable="true">✓</td><td contenteditable="true">—</td>
+              <td contenteditable="true">—</td><td contenteditable="true">✓</td>
+              <td contenteditable="true">—</td><td contenteditable="true">—</td>
+              <td contenteditable="true">—</td><td contenteditable="true">✓</td>
+              <td contenteditable="true">—</td><td contenteditable="true">—</td>
+              <td></td><td></td><td class="message"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div id="sortMessage" class="sort-message" aria-live="polite"></div>
+    </section>
+
+    <!-- Report -->
+    <section id="report" class="card" aria-labelledby="reportTitle">
+      <h2 id="reportTitle">Attendance Report</h2>
+
+      <div class="report-grid">
+        <div class="stat card small">
+          <div class="stat-label">Total Students</div>
+          <div class="stat-value" id="totalStudents">0</div>
+        </div>
+
+        <div class="stat card small">
+          <div class="stat-label">Total Presence (cells)</div>
+          <div class="stat-value" id="totalPresent">0</div>
+        </div>
+
+        <div class="stat card small">
+          <div class="stat-label">Total Participation (cells)</div>
+          <div class="stat-value" id="totalParticipation">0</div>
+        </div>
+      </div>
+
+      <div class="chart-wrap card">
+        <canvas id="pieChart" aria-label="Attendance pie chart"></canvas>
+      </div>
+    </section>
+
+    <!-- Add Student -->
+    <section id="add-student" class="card">
+      <h2>Add New Student</h2>
+
+      <form id="studentForm" novalidate>
+        <div class="form-row">
+          <label for="sid">Student ID</label>
+          <input id="sid" type="text" aria-describedby="err-sid">
+          <div class="error" id="err-sid"></div>
+        </div>
+
+        <div class="form-row">
+          <label for="lname">Last Name</label>
+          <input id="lname" type="text" aria-describedby="err-lname">
+          <div class="error" id="err-lname"></div>
+        </div>
+
+        <div class="form-row">
+          <label for="fname">First Name</label>
+          <input id="fname" type="text" aria-describedby="err-fname">
+          <div class="error" id="err-fname"></div>
+        </div>
+
+        <div class="form-row">
+          <label for="email">Email</label>
+          <input id="email" type="email" aria-describedby="err-email">
+          <div class="error" id="err-email"></div>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn primary">Add Student</button>
+          <button type="reset" class="btn ghost">Clear</button>
+        </div>
+      </form>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div>Prepared for PAW — by you</div>
+    <div class="small">Tip: edit S/P cells (use "✓" for present/participation). Click outside cell to update.</div>
+  </footer>
 </body>
 </html>

@@ -1,155 +1,94 @@
-body {
-    font-family: 'Poppins', sans-serif;
-    margin: 0;
-    background: linear-gradient(135deg, #e8f0ff, #cfd9ff);
-    color: #222;
-  }
-  
-  
-  .navbar {
-    background: #003580;
-    color: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 30px;
-    flex-wrap: wrap;
-  }
-  
-  .navbar h1 {
-    font-size: 1.4em;
-    font-weight: 600;
-  }
-  
-  .navbar a {
-    color: white;
-    text-decoration: none;
-    margin-left: 15px;
-    font-weight: 500;
-  }
-  
-  .navbar a:hover {
-    text-decoration: underline;
-  }
-  
-  
-  h2 {
-    text-align: center;
-    margin-top: 25px;
-    color: #003580;
-  }
-  
-  
-  .controls {
-    text-align: center;
-    margin: 10px;
-  }
-  
-  .controls input {
-    padding: 6px 12px;
-    border-radius: 6px;
-    border: 1px solid #aaa;
-    width: 220px;
-    margin-right: 5px;
-  }
-  
-  .controls button {
-    background: #004aad;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    padding: 6px 10px;
-    margin: 3px;
-    cursor: pointer;
-    transition: background 0.3s;
-  }
-  
-  .controls button:hover {
-    background: #3366cc;
-  }
-  
-  table {
-    width: 90%;
-    margin: 20px auto;
-    border-collapse: collapse;
-    background: white;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    border-radius: 8px;
-    overflow: hidden;
-  }
-  
-  th {
-    background: #003580;
-    color: white;
-    padding: 10px;
-  }
-  
-  td {
-    padding: 8px;
-    border-bottom: 1px solid #eee;
-  }
-  
-  tr:nth-child(even) {
-    background: #f5f9ff;
-  }
-  
-  tr:hover {
-    background: #dce6ff;
-    transition: 0.2s;
-  }
-  
-  
-  form {
-    width: 80%;
-    max-width: 600px;
-    margin: 20px auto;
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  }
-  
-  form div {
-    margin-bottom: 12px;
-  }
-  
-  label {
-    display: inline-block;
-    width: 100px;
-  }
-  
-  input {
-    padding: 6px;
-    border-radius: 6px;
-    border: 1px solid #aaa;
-    width: 60%;
-  }
-  
-  button[type="submit"] {
-    background: #003580;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    padding: 8px 15px;
-    cursor: pointer;
-  }
-  
-  button[type="submit"]:hover {
-    background: #3366cc;
-  }
-  
-  .error {
-    color: red;
-    font-size: 0.8em;
-    margin-left: 5px;
-  }
-  
-  /* === Responsive === */
-  @media (max-width: 600px) {
-    table {
-      width: 100%;
-    }
-    .navbar {
-      flex-direction: column;
-    }
-  }
+:root{
+  --bg:#f4f8ff;
+  --card:#ffffff;
+  --accent:#0c4da2;
+  --muted:#6b7d99;
+  --green:#b9f5b0;
+  --yellow:#fff7a6;
+  --red:#ffb3b3;
+  --radius:12px;
+  --gap:14px;
+  --card-shadow: 0 6px 20px rgba(12,77,162,0.08);
+  --font: "Poppins", Arial, sans-serif;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:var(--font);
+  background:linear-gradient(180deg,var(--bg),#ffffff);
+  color:#10203a;
+  -webkit-font-smoothing:antialiased;
+  line-height:1.4;
+}
+
+/* Header */
+.site-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:18px 28px;
+  background:linear-gradient(90deg,var(--accent),#2a6fc6);
+  color:white;
+  gap:12px;
+}
+.brand h1{margin:0;font-size:20px;font-weight:700}
+.brand .subtitle{margin:2px 0 0 0;font-size:13px;opacity:0.9}
+.main-nav a{color:white;text-decoration:none;margin-left:12px;padding:8px 10px;border-radius:8px;font-weight:600}
+.main-nav a:hover{background:rgba(255,255,255,0.08)}
+
+/* Layout */
+.container{max-width:1200px;margin:22px auto;padding:0 18px;display:flex;flex-direction:column;gap:18px}
+.card{background:var(--card);border-radius:var(--radius);padding:16px;box-shadow:var(--card-shadow)}
+.card-head{display:flex;flex-direction:column;gap:12px}
+.card-head h2{margin:0;color:var(--accent)}
+.controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.controls input{padding:10px 12px;border-radius:10px;border:1px solid #e0e6f0;min-width:220px}
+.btn-group{display:flex;gap:8px;flex-wrap:wrap}
+.btn{padding:9px 12px;border-radius:10px;border:none;background:#e6eefc;color:var(--accent);font-weight:700;cursor:pointer}
+.btn:hover{opacity:0.95;transform:translateY(-1px)}
+.btn.primary{background:var(--accent);color:white}
+.btn.alt{background:#2b8a4a;color:white}
+.btn.ghost{background:transparent;border:1px solid #d7e3fb;color:var(--accent)}
+
+/* Table */
+.table-wrap{overflow:auto}
+#attendance-table{width:100%;border-collapse:collapse;min-width:1100px}
+#attendance-table th, #attendance-table td{padding:10px 12px;border-bottom:1px solid #f0f4fb;text-align:center;font-size:14px}
+#attendance-table th{background:linear-gradient(180deg,#f3f7ff,#e9f1ff);color:var(--accent);font-weight:700;position:sticky;top:0}
+#attendance-table tbody tr:hover{background:rgba(12,77,162,0.03)}
+.green-row{background:var(--green) !important}
+.yellow-row{background:var(--yellow) !important}
+.red-row{background:var(--red) !important}
+.message{ text-align:left;padding-left:12px; min-width:230px }
+
+/* sort message */
+.sort-message{margin-top:10px;color:var(--muted);font-weight:600;text-align:center}
+
+/* Report area */
+.report-grid{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-bottom:12px}
+.stat.small{flex:1 1 180px;text-align:center;padding:12px;border-radius:10px;border:1px solid #eef6ff}
+.stat-label{color:var(--muted);font-weight:600}
+.stat-value{font-size:22px;font-weight:800;color:var(--accent);margin-top:6px}
+.chart-wrap{display:flex;justify-content:center;padding:18px;border-radius:12px;background:linear-gradient(180deg,#ffffff,#fbfdff);box-shadow:0 6px 18px rgba(12,77,162,0.04)}
+.chart-wrap canvas{max-width:460px;max-height:460px}
+
+/* Form */
+.form-row{margin-bottom:12px}
+.form-row label{display:block;font-weight:700;margin-bottom:6px}
+.form-row input{width:100%;padding:10px;border-radius:10px;border:1px solid #e0e6f0}
+.form-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:8px}
+
+/* Footer */
+.site-footer{padding:18px 28px;background:#fbfdff;color:#66788f;display:flex;justify-content:space-between;gap:12px;font-size:13px;border-top:1px solid #f0f5fb}
+
+/* Responsive */
+@media (max-width:1000px){
+  .chart-wrap canvas{max-width:320px;max-height:320px}
+  #attendance-table{min-width:900px}
+}
+@media (max-width:720px){
+  .main-nav{display:none}
+  .controls{flex-direction:column;align-items:stretch}
+  #attendance-table{min-width:800px}
+  .chart-wrap canvas{max-width:280px;max-height:280px}
+}
